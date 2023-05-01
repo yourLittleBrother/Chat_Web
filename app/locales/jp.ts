@@ -151,6 +151,11 @@ const jp: LocaleType = {
       SubTitle: "暗号化アクセスが有効になっています",
       Placeholder: "アクセスパスワードを入力してください",
     },
+    AccessOwnCode: {
+      Title: "给您分配的访问密钥",
+      SubTitle: "已开启加密访问",
+      Placeholder: "请输入访问密钥",
+    },
     Model: "モデル (model)",
     Temperature: {
       Title: "ランダム性 (temperature)",
