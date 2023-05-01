@@ -146,6 +146,11 @@ const tw: LocaleType = {
       SubTitle: "目前是未授權存取狀態",
       Placeholder: "請輸入授權碼",
     },
+    AccessOwnCode: {
+      Title: "给您分配的访问密钥",
+      SubTitle: "已开启加密访问",
+      Placeholder: "请输入访问密钥",
+    },
     Model: "模型 (model)",
     Temperature: {
       Title: "隨機性 (temperature)",
