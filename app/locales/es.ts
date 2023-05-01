@@ -149,6 +149,11 @@ const es: LocaleType = {
       SubTitle: "Control de acceso habilitado",
       Placeholder: "Necesita código de acceso",
     },
+    AccessOwnCode: {
+      Title: "给您分配的访问密钥",
+      SubTitle: "已开启加密访问",
+      Placeholder: "请输入访问密钥",
+    },
     Model: "Modelo",
     Temperature: {
       Title: "Temperatura",
