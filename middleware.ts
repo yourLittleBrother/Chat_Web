@@ -31,8 +31,8 @@ export function middleware(req: NextRequest) {
   console.log("[User IP] ", getIP(req));
   console.log("[Time] ", new Date().toLocaleString());
 
-  let param = {"accessCode":accessOwnCode}
-  //先检查code是否还有次数
+  let param = { "accessCode": accessOwnCode }
+  //先检查code是否还有次数http://127.0.0.1:8384
   fetch("https://talk.tianyajuanke.top/user/checkUserCode", {
     method: 'POST',
     headers: {
@@ -40,30 +40,31 @@ export function middleware(req: NextRequest) {
     },
     body: JSON.stringify(param)
   })
-  .then(response => response.json())
-  .then(data => {
-    num = Number(data)
-    console.log('Success:', data);
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
+    .then(response => response.json())
+    .then(data => {
+      num = Number(data)
+      console.log('Success:', data);
+      if (num < 1) {
+        return NextResponse.json(
+          {
+            error: true,
+            needAccessCode: true,
+            msg: "Please go settings page and fill your access code.",
+          },
+          {
+            status: 401,
+          },
+        );
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
 
-  if(num<1){
-    return NextResponse.json(
-      {
-        error: true,
-        needAccessCode: true,
-        msg: "Please go settings page and fill your access code.",
-      },
-      {
-        status: 401,
-      },
-    );
-  }
-  
-  
-  
+
+
+
+
   if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !token) {
     return NextResponse.json(
       {
