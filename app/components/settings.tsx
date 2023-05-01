@@ -327,7 +327,7 @@ export function Settings() {
             </select>
           </ListItem>
 
-          <ListItem title={Locale.Settings.Lang.Name}>
+          {/* <ListItem title={Locale.Settings.Lang.Name}>
             <select
               value={getLang()}
               onChange={(e) => {
@@ -340,7 +340,7 @@ export function Settings() {
                 </option>
               ))}
             </select>
-          </ListItem>
+          </ListItem> */}
 
           <ListItem
             title={Locale.Settings.FontSize.Title}
@@ -413,6 +413,20 @@ export function Settings() {
           ) : (
             <></>
           )}
+
+            <ListItem
+            title={Locale.Settings.AccessOwnCode.Title}
+            subTitle={Locale.Settings.AccessOwnCode.SubTitle}
+          >
+            <PasswordInput
+              value={accessStore.accessOwnCode}
+              type="text"
+              placeholder={Locale.Settings.AccessOwnCode.Placeholder}
+              onChange={(e) => {
+                accessStore.updateOwnCode(e.currentTarget.value);
+              }}
+            />
+          </ListItem>
 
           {/* <ListItem
             title={Locale.Settings.Token.Title}

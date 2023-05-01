@@ -21,15 +21,49 @@ function getIP(req: NextRequest) {
 
 export function middleware(req: NextRequest) {
   const accessCode = req.headers.get("access-code");
+  const accessOwnCode = req.headers.get("access-own-code");
   const token = req.headers.get("token");
   const hashedCode = md5.hash(accessCode ?? "").trim();
-
+  let num = 0;
   console.log("[Auth] allowed hashed codes: ", [...serverConfig.codes]);
   console.log("[Auth] got access code:", accessCode);
   console.log("[Auth] hashed access code:", hashedCode);
   console.log("[User IP] ", getIP(req));
   console.log("[Time] ", new Date().toLocaleString());
 
+  let param = {"accessCode":accessOwnCode}
+  //先检查code是否还有次数
+  fetch("https://talk.tianyajuanke.top/user/checkUserCode", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(param)
+  })
+  .then(response => response.json())
+  .then(data => {
+    num = Number(data)
+    console.log('Success:', data);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+
+  if(num<1){
+    return NextResponse.json(
+      {
+        error: true,
+        needAccessCode: true,
+        msg: "Please go settings page and fill your access code.",
+      },
+      {
+        status: 401,
+      },
+    );
+  }
+  
+  
+  
   if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !token) {
     return NextResponse.json(
       {

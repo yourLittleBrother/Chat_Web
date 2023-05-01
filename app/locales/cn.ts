@@ -4,7 +4,7 @@ const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
     Unauthorized:
-      "现在是未授权状态，请点击左下角[设置](/#/settings)按钮输入访问密码。",
+      "现在是未授权状态或访问次数耗尽，请点击左下角[设置](/#/settings)按钮重新输入访问密码。",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,
@@ -147,6 +147,11 @@ const cn = {
       Title: "访问密码",
       SubTitle: "已开启加密访问",
       Placeholder: "请输入访问密码",
+    },
+    AccessOwnCode: {
+      Title: "给您分配的访问密钥",
+      SubTitle: "已开启加密访问",
+      Placeholder: "请输入访问密钥",
     },
     Model: "模型 (model)",
     Temperature: {

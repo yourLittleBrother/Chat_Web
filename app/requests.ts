@@ -50,7 +50,7 @@ const makeRequestParam = (
 function getHeaders() {
   const accessStore = useAccessStore.getState();
   let headers: Record<string, string> = {};
-
+  headers["access-own-code"] = accessStore.accessOwnCode;
   if (accessStore.enabledAccessControl()) {
     headers["access-code"] = accessStore.accessCode;
   }
