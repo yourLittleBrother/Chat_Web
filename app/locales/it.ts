@@ -150,6 +150,11 @@ const it: LocaleType = {
       SubTitle: "Controllo d'accesso abilitato",
       Placeholder: "Inserisci il codice d'accesso",
     },
+    AccessOwnCode: {
+      Title: "给您分配的访问密钥",
+      SubTitle: "已开启加密访问",
+      Placeholder: "请输入访问密钥",
+    },
     Model: "Modello GPT",
     Temperature: {
       Title: "Temperature",
