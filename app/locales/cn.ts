@@ -4,7 +4,7 @@ const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
     Unauthorized:
-      "现在是未授权状态或访问次数耗尽，请点击左下角[设置](/#/settings)按钮重新输入访问密码。",
+      "积分耗尽或请求内容非法，请检查后重试！！！",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,
