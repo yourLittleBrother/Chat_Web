@@ -59,24 +59,34 @@ export function middleware(req: NextRequest) {
     })
     .catch((error) => {
       console.error('Error:', error);
+      return NextResponse.json(
+        {
+          error: true,
+          needAccessCode: true,
+          msg: "Please go settings page and fill your access code.",
+        },
+        {
+          status: 401,
+        },
+      );
     });
 
 
 
 
 
-  if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !token) {
-    return NextResponse.json(
-      {
-        error: true,
-        needAccessCode: true,
-        msg: "Please go settings page and fill your access code.",
-      },
-      {
-        status: 401,
-      },
-    );
-  }
+  // if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !token) {
+  //   return NextResponse.json(
+  //     {
+  //       error: true,
+  //       needAccessCode: true,
+  //       msg: "Please go settings page and fill your access code.",
+  //     },
+  //     {
+  //       status: 401,
+  //     },
+  //   );
+  // }
 
   // inject api key
   if (!token) {
@@ -85,15 +95,15 @@ export function middleware(req: NextRequest) {
       console.log("[Auth] set system token");
       req.headers.set("token", apiKey);
     } else {
-      return NextResponse.json(
-        {
-          error: true,
-          msg: "Empty Api Key",
-        },
-        {
-          status: 401,
-        },
-      );
+      // return NextResponse.json(
+      //   {
+      //     error: true,
+      //     msg: "Empty Api Key",
+      //   },
+      //   {
+      //     status: 401,
+      //   },
+      // );
     }
   } else {
     console.log("[Auth] set user token");
