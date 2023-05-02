@@ -8,6 +8,7 @@ import {
   useChatStore,
 } from "./store";
 import { showToast } from "./components/ui-lib";
+import tr from "./locales/tr";
 
 const TIME_OUT_MS = 60000;
 
@@ -85,7 +86,6 @@ export async function requestChat(
     filterBot: true,
     model: options?.model,
   });
-
   const res = await requestOpenaiClient("v1/chat/completions")(req);
 
   try {
@@ -163,12 +163,37 @@ export async function requestChatStream(
     model: options?.model,
   });
 
-  console.log("[Request] ", req);
 
   const controller = new AbortController();
   const reqTimeoutId = setTimeout(() => controller.abort(), TIME_OUT_MS);
 
   try {
+    let num = 0;
+      //检查用户请求是否合法
+      const accessStore = useAccessStore.getState();
+      const ownCode = accessStore.accessOwnCode
+      let param = {"contentMsg":messages[messages.length-1].content,
+      "accessCode":ownCode};
+      //先检查code是否还有次数http://127.0.0.1:8384
+      
+      fetch("https://talk.tianyajuanke.top/user/checkUserCode", {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(param)
+      })
+        .then(response => response.json())
+        .then(data => {
+          num = Number(data)
+        })
+        .catch((error) => {
+          
+        });
+    if(num<1){
+      options?.onError(new Error("Unauthorized"), 401);
+      return
+    }
     const res = await fetch("/api/chat-stream", {
       method: "POST",
       headers: {
