@@ -168,29 +168,32 @@ export async function requestChatStream(
   const reqTimeoutId = setTimeout(() => controller.abort(), TIME_OUT_MS);
 
   try {
-    let num = 0;
-      //检查用户请求是否合法
-      const accessStore = useAccessStore.getState();
-      const ownCode = accessStore.accessOwnCode
-      let param = {"contentMsg":messages[messages.length-1].content,
-      "accessCode":ownCode};
-      //先检查code是否还有次数http://127.0.0.1:8384
-      
-      fetch("https://talk.tianyajuanke.top/user/checkUserCode", {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(param)
+    let num: number = 0;
+    //检查用户请求是否合法
+    const accessStore = useAccessStore.getState();
+    const ownCode = accessStore.accessOwnCode
+    let param = {
+      "contentMsg": messages[messages.length - 1].content,
+      "accessCode": ownCode
+    };
+    //先检查code是否还有次数http://127.0.0.1:8384
+
+    await fetch("https://talk.tianyajuanke.top/user/checkUserCode", {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(param)
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        num = Number(data);
       })
-        .then(response => response.json())
-        .then(data => {
-          num = Number(data)
-        })
-        .catch((error) => {
-          
-        });
-    if(num<1){
+      .catch((error) => {
+
+      });
+    if (num < 1) {
       options?.onError(new Error("Unauthorized"), 401);
       return;
     }
