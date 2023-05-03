@@ -190,10 +190,11 @@ export async function requestChatStream(
         .catch((error) => {
           
         });
-    if(num<1){
+    if(num<0){
       options?.onError(new Error("Unauthorized"), 401);
       return
     }
+    console.log("go on");
     const res = await fetch("/api/chat-stream", {
       method: "POST",
       headers: {
