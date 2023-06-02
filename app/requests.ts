@@ -178,7 +178,7 @@ export async function requestChatStream(
     };
     //先检查code是否还有次数http://127.0.0.1:8384
 
-    await fetch("https://talk.tianyajuanke.top/user/checkUserCode", {
+    await fetch("http://web.chatmindmate.top/user/checkUserCode", {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
