@@ -15,6 +15,7 @@ export enum Path {
   Masks = "/masks",
 }
 
+
 export enum SlotID {
   AppBody = "app-body",
 }
