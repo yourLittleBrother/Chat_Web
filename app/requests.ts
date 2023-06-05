@@ -178,25 +178,25 @@ export async function requestChatStream(
     };
     //先检查code是否还有次数http://127.0.0.1:8384
 
-    await fetch("https://talk.chatmindmate.top/user/checkUserCode", {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(param)
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        num = Number(data);
-      })
-      .catch((error) => {
+//     await fetch("https://talk.chatmindmate.top/user/checkUserCode", {
+//       method: 'POST',
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(param)
+//     })
+//       .then(response => response.json())
+//       .then(data => {
+//         console.log(data);
+//         num = Number(data);
+//       })
+//       .catch((error) => {
 
-      });
-    if (num < 1) {
-      options?.onError(new Error("Unauthorized"), 401);
-      return;
-    }
+//       });
+//     if (num < 1) {
+//       options?.onError(new Error("Unauthorized"), 401);
+//       return;
+//     }
     console.log("go on");
     const res = await fetch("/api/chat-stream", {
       method: "POST",
